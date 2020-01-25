@@ -8,13 +8,13 @@
 </template>
 
 <script>
-import Sidebar from "@/components/Sidebar";
+import Sidebar from '@/components/Sidebar';
 
 export default {
-  name: "app",
+  name: 'app',
   components: {
-    sidear: Sidebar
-  }
+    sidear: Sidebar,
+  },
 };
 </script>
 

@@ -1,8 +1,7 @@
 const state = {
   notes: [],
   isLoading: false,
-  isShowNoteList: false,
-  selectedCategory: ""
+  isShowNoteList: false
 };
 
 const mutations = {
@@ -24,9 +23,6 @@ const mutations = {
   },
   SHOW_NOTES(state, flag) {
     state.isShowNoteList = flag;
-  },
-  SELECT_CATEGORY(state, category) {
-    state.selectedCategory = category;
   }
 };
 
@@ -40,31 +36,26 @@ const actions = {
       {
         id: 1,
         title: "Title1-1",
-        category: "Category1",
         body: "text1"
       },
       {
         id: 2,
         title: "Title1-2",
-        category: "Category1",
         body: "text1-2"
       },
       {
         id: 3,
         title: "Title2-1",
-        category: "Category2",
         body: "text2-1"
       },
       {
         id: 4,
         title: "Title2-2",
-        category: "Category2",
         body: "text2-2"
       },
       {
         id: 5,
         title: "Title3-1",
-        category: "Category3",
         body: "text3-1"
       }
     ];
@@ -79,33 +70,12 @@ const actions = {
   },
   updateNote(store) {
     store.dispatch("loadNotes");
-  },
-  selectCategory(store, category) {
-    const selectCategory = store.state.selectCategory;
-    const isShowNoteList = store.state.isShowNoteList;
-
-    if (selectCategory === category && isShowNoteList) {
-      store.commit("SHOW_NOTES", false);
-    } else if (selectCategory === category && !isShowNoteList) {
-      store.commit("SHOW_NOTES", true);
-    } else if (selectCategory !== category) {
-      store.commit("SHOW_NOTES", true);
-      store.commit("SELECT_CATEGORY", category);
-    }
   }
 };
 
 const getters = {
   notes: state => state.notes,
   noteById: state => id => state.notes.find(note => note.id === id),
-  categories: state => {
-    const categories = state.notes.map(note => note.category);
-    return categories.filter((category, i, self) => {
-      return self.indexOf(category) === i;
-    });
-  },
-  noteByCategory: state => category =>
-    state.notes.filter(note => note.category === category),
   isLoading: state => state.isLoading,
   isShowNoteList: state => state.isShowNoteList
 };
