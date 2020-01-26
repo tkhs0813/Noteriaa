@@ -1,5 +1,5 @@
 <template>
-  <aside class="column is-3">
+  <aside>
     <note-list />
   </aside>
 </template>

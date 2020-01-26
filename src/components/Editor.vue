@@ -1,6 +1,6 @@
 <template>
-  <div class="column">
-    <main role="main" class="column">This is Markdown Editor</main>
+  <div>
+    <main role="main">This is Markdown Editor</main>
   </div>
 </template>
 

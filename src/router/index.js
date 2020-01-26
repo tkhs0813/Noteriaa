@@ -1,14 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Editor from "../views/Editor.vue";
+import App from "../App.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "editor",
-    component: Editor
+    name: "app",
+    component: App
   }
 ];
 

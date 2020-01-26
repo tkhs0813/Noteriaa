@@ -1,19 +1,26 @@
 <template>
   <div id="app">
     <div class="columns">
-      <sidear />
-      <router-view></router-view>
+      <div class="column">
+        <sidebar />
+      </div>
+      <div class="column">
+        <editor />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+// import "normalize.css";
 import Sidebar from "@/components/Sidebar";
+import Editor from "@/components/Editor";
 
 export default {
   name: "app",
   components: {
-    sidear: Sidebar
+    sidebar: Sidebar,
+    editor: Editor
   }
 };
 </script>
@@ -22,14 +29,9 @@ export default {
 html,
 body {
   height: 100%;
-  padding: 0;
-  margin: 0;
-}
-#app {
-  height: 100%;
   min-height: 100%;
 }
-.columns {
+#app {
   height: 100%;
 }
 /* TODO: delete */
