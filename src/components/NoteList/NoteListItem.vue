@@ -1,5 +1,5 @@
 <template>
-  <div>note-list-item</div>
+  <div>{{ title }}</div>
 </template>
 
 <script>

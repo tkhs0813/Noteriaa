@@ -1,7 +1,9 @@
 <template>
   <div>
     <div v-for="note in notes" :key="note.id">
-      <note-list-item />
+      <div @click.stop.prevent="selectNote(note)">
+        <note-list-item :title="note.title" />
+      </div>
     </div>
   </div>
 </template>
@@ -16,10 +18,10 @@ export default {
     "note-list-item": NoteListItem
   },
   computed: {
-    ...mapGetters(["notes", "noteById", "isLoading"])
+    ...mapGetters(["notes", "selectedNote", "noteById", "isLoading"])
   },
   methods: {
-    ...mapActions(["loadNotes"])
+    ...mapActions(["loadNotes", "selectNote"])
   },
   created() {
     this.loadNotes();
