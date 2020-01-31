@@ -9,19 +9,19 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import NoteListItem from "@/components/NoteList/NoteListItem.vue";
+import {mapGetters, mapActions} from 'vuex';
+import NoteListItem from '@/components/NoteList/NoteListItem.vue';
 
 export default {
-  name: "card-list",
+  name: 'card-list',
   components: {
-    "note-list-item": NoteListItem
+    'note-list-item': NoteListItem,
   },
   computed: {
-    ...mapGetters(["notes", "noteById", "openNoteId", "isLoading"])
+    ...mapGetters(['notes', 'noteById', 'openNoteId', 'isLoading']),
   },
   methods: {
-    ...mapActions(["loadNotes"]),
+    ...mapActions(['loadNotes']),
     openNote(note) {
       if (note.isOpen) {
         note.isOpen = false;
@@ -29,12 +29,12 @@ export default {
         note.isOpen = true;
       }
       console.log(this.openNoteId);
-      console.log({ note });
-    }
+      console.log({note});
+    },
   },
   created() {
     this.loadNotes();
-  }
+  },
 };
 </script>
 

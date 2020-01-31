@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div class="columns">
-      <div class="column">
+      <div class="column is-3">
         <sidebar />
       </div>
-      <div class="column">
+      <div class="column" v-if="selectedNote">
         <editor />
       </div>
     </div>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-// import "normalize.css";
+import { mapGetters } from "vuex";
 import Sidebar from "@/components/Sidebar";
 import Editor from "@/components/Editor";
 
@@ -21,6 +21,9 @@ export default {
   components: {
     sidebar: Sidebar,
     editor: Editor
+  },
+  computed: {
+    ...mapGetters(["selectedNote"])
   }
 };
 </script>

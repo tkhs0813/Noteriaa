@@ -13,7 +13,7 @@ const mutations = {
   DELETE_NOTES(state, note) {
     state.notes = state.notes.filter(n => n.id !== note.id);
   },
-  UPDATE_NOTES(state, note) {
+  UPDATE_NOTE(state, note) {
     const updateNotesId = state.notes.findIndex(n => n.id === note.id);
     state.notes.splice(updateNotesId, 1, note);
   },
@@ -68,6 +68,13 @@ const actions = {
     store.commit("SELECT_LOADING", true);
     store.commit("ADD_NOTE", note);
     store.commit("SELECT_LOADING", false);
+  },
+  selectNote(store, note) {
+    for (let i = 0; store.state.notes.length > 0; i++) {
+      const note = store.state.notes[i];
+      if (note.isSelected) {
+      }
+    }
   },
   updateNote(store) {
     store.dispatch("loadNotes");
