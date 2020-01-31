@@ -1,7 +1,6 @@
 const state = {
   notes: [],
-  isLoading: false,
-  isShowNoteList: false
+  isLoading: false
 };
 
 const mutations = {
@@ -20,9 +19,6 @@ const mutations = {
   },
   SELECT_LOADING(state, loading) {
     state.isLoading = loading;
-  },
-  SHOW_NOTES(state, flag) {
-    state.isShowNoteList = flag;
   }
 };
 
@@ -36,27 +32,32 @@ const actions = {
       {
         id: 1,
         title: "Title1-1",
-        body: "text1"
+        body: "text1",
+        isOpen: false
       },
       {
         id: 2,
         title: "Title1-2",
-        body: "text1-2"
+        body: "text1-2",
+        isOpen: false
       },
       {
         id: 3,
         title: "Title2-1",
-        body: "text2-1"
+        body: "text2-1",
+        isOpen: false
       },
       {
         id: 4,
         title: "Title2-2",
-        body: "text2-2"
+        body: "text2-2",
+        isOpen: false
       },
       {
         id: 5,
         title: "Title3-1",
-        body: "text3-1"
+        body: "text3-1",
+        isOpen: false
       }
     ];
 
@@ -76,8 +77,11 @@ const actions = {
 const getters = {
   notes: state => state.notes,
   noteById: state => id => state.notes.find(note => note.id === id),
-  isLoading: state => state.isLoading,
-  isShowNoteList: state => state.isShowNoteList
+  openNoteId: state =>
+    state.notes.filter(note => {
+      if (note.isOpen) return note.id;
+    }),
+  isLoading: state => state.isLoading
 };
 
 export default {

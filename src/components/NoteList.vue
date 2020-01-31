@@ -1,7 +1,9 @@
 <template>
   <div>
     <div v-for="note in notes" :key="note.id">
-      <note-list-item />
+      <div @click="openNote(note)">
+        <note-list-item :title="note.title" />
+      </div>
     </div>
   </div>
 </template>
@@ -16,10 +18,19 @@ export default {
     "note-list-item": NoteListItem
   },
   computed: {
-    ...mapGetters(["notes", "noteById", "isLoading"])
+    ...mapGetters(["notes", "noteById", "openNoteId", "isLoading"])
   },
   methods: {
-    ...mapActions(["loadNotes"])
+    ...mapActions(["loadNotes"]),
+    openNote(note) {
+      if (note.isOpen) {
+        note.isOpen = false;
+      } else {
+        note.isOpen = true;
+      }
+      console.log(this.openNoteId);
+      console.log({ note });
+    }
   },
   created() {
     this.loadNotes();
