@@ -1,6 +1,6 @@
 const state = {
   notes: [],
-  isLoading: false
+  isLoading: false,
 };
 
 const mutations = {
@@ -25,78 +25,81 @@ const mutations = {
   },
   SELECT_LOADING(state, loading) {
     state.isLoading = loading;
-  }
+  },
 };
 
 const actions = {
   loadNotes(store) {
-    store.commit("SELECT_LOADING", true);
-    store.commit("LOAD_NOTES", []);
+    store.commit('SELECT_LOADING', true);
+    store.commit('LOAD_NOTES', []);
 
     // 本来はDBからとってくる
     const notes = [
       {
         id: 1,
-        title: "Title1-1",
-        body: "text1",
-        isOpen: false
+        title: 'Title1-1',
+        body: 'text1',
+        isOpen: false,
       },
       {
         id: 2,
-        title: "Title1-2",
-        body: "text1-2",
-        isOpen: false
+        title: 'Title1-2',
+        body: 'text1-2',
+        isOpen: false,
       },
       {
         id: 3,
-        title: "Title2-1",
-        body: "text2-1",
-        isOpen: false
+        title: 'Title2-1',
+        body: 'text2-1',
+        isOpen: false,
       },
       {
         id: 4,
-        title: "Title2-2",
-        body: "text2-2",
-        isOpen: false
+        title: 'Title2-2',
+        body: 'text2-2',
+        isOpen: false,
       },
       {
         id: 5,
-        title: "Title3-1",
-        body: "text3-1",
-        isOpen: false
-      }
+        title: 'Title3-1',
+        body: 'text3-1',
+        isOpen: false,
+      },
     ];
 
-    store.commit("LOAD_NOTES", notes);
-    store.commit("SELECT_LOADING", false);
+    store.commit('LOAD_NOTES', notes);
+    store.commit('SELECT_LOADING', false);
   },
   addNote(store, note) {
-    store.commit("SELECT_LOADING", true);
-    store.commit("ADD_NOTE", note);
-    store.commit("SELECT_LOADING", false);
+    store.commit('SELECT_LOADING', true);
+    store.commit('ADD_NOTE', note);
+    store.commit('SELECT_LOADING', false);
   },
   selectNote(store, note) {
     if (!note.isOpen) {
-      store.commit("CLOSE_NOTE");
+      store.commit('CLOSE_NOTE');
       note.isOpen = true;
-      store.commit("UPDATE_NOTE", note);
+      store.commit('UPDATE_NOTE', note);
     }
   },
   updateNote(store) {
-    store.dispatch("loadNotes");
-  }
+    store.dispatch('loadNotes');
+  },
 };
 
 const getters = {
   notes: state => state.notes,
   noteById: state => id => state.notes.find(note => note.id === id),
-  openNoteId: state => state.notes.filter(note => note.isOpen),
-  isLoading: state => state.isLoading
+  openNote: state => {
+    const index = state.notes.findIndex(note => note.isOpen);
+    return state.notes[index];
+  },
+  isLoading: state => state.isLoading,
 };
 
 export default {
   state,
   mutations,
   actions,
-  getters
+  getters,
 };

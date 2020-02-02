@@ -18,14 +18,12 @@ export default {
     "note-list-item": NoteListItem
   },
   computed: {
-    ...mapGetters(["notes", "noteById", "openNoteId", "isLoading"])
+    ...mapGetters(["notes", "noteById", "isLoading"])
   },
   methods: {
     ...mapActions(["loadNotes", "selectNote"]),
     openNote(note) {
       this.selectNote(note);
-      console.log(this.openNoteId);
-      console.log({ note });
     }
   },
   created() {

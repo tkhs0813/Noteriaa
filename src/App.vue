@@ -5,22 +5,26 @@
         <sidebar />
       </div>
       <div class="column">
-        <editor />
+        <editor :note="openNote" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Sidebar from "@/components/Sidebar";
-import Editor from "@/components/Editor";
+import {mapGetters} from 'vuex';
+import Sidebar from '@/components/Sidebar';
+import Editor from '@/components/Editor';
 
 export default {
-  name: "app",
+  name: 'app',
   components: {
     sidebar: Sidebar,
-    editor: Editor
-  }
+    editor: Editor,
+  },
+  computed: {
+    ...mapGetters(['openNote']),
+  },
 };
 </script>
 
