@@ -4,7 +4,7 @@
       <div class="column is-3">
         <sidebar />
       </div>
-      <div class="column" v-if="selectedNote">
+      <div class="column">
         <editor />
       </div>
     </div>
@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import Sidebar from "@/components/Sidebar";
 import Editor from "@/components/Editor";
 
@@ -21,9 +20,6 @@ export default {
   components: {
     sidebar: Sidebar,
     editor: Editor
-  },
-  computed: {
-    ...mapGetters(["selectedNote"])
   }
 };
 </script>

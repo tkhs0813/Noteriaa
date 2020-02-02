@@ -17,6 +17,12 @@ const mutations = {
     const updateNotesId = state.notes.findIndex(n => n.id === note.id);
     state.notes.splice(updateNotesId, 1, note);
   },
+  CLOSE_NOTE(state) {
+    state.notes = state.notes.map(note => {
+      note.isOpen = false;
+      return note;
+    });
+  },
   SELECT_LOADING(state, loading) {
     state.isLoading = loading;
   }
@@ -70,10 +76,10 @@ const actions = {
     store.commit("SELECT_LOADING", false);
   },
   selectNote(store, note) {
-    for (let i = 0; store.state.notes.length > 0; i++) {
-      const note = store.state.notes[i];
-      if (note.isSelected) {
-      }
+    if (!note.isOpen) {
+      store.commit("CLOSE_NOTE");
+      note.isOpen = true;
+      store.commit("UPDATE_NOTE", note);
     }
   },
   updateNote(store) {
@@ -84,10 +90,7 @@ const actions = {
 const getters = {
   notes: state => state.notes,
   noteById: state => id => state.notes.find(note => note.id === id),
-  openNoteId: state =>
-    state.notes.filter(note => {
-      if (note.isOpen) return note.id;
-    }),
+  openNoteId: state => state.notes.filter(note => note.isOpen),
   isLoading: state => state.isLoading
 };
 
