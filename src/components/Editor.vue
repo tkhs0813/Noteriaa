@@ -1,10 +1,10 @@
 <template>
   <div>
     <b-field label="Title">
-      <b-input v-model="note.title"></b-input>
+      <b-input v-model="note.title" required></b-input>
     </b-field>
     <b-field label="Body">
-      <b-input v-model="note.title" type="textarea"></b-input>
+      <b-input v-model="note.body" type="textarea"></b-input>
     </b-field>
   </div>
 </template>
