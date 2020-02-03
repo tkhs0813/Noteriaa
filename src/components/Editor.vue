@@ -1,9 +1,11 @@
 <template>
   <div>
-    <input type="text" v-model="note.title" />
-    <main role="main">
-      <textarea v-model="note.body"></textarea>
-    </main>
+    <b-field label="Title">
+      <b-input v-model="note.title"></b-input>
+    </b-field>
+    <b-field label="Body">
+      <b-input v-model="note.title" type="textarea"></b-input>
+    </b-field>
   </div>
 </template>
 

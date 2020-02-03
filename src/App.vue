@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <div class="columns">
-      <div class="column is-3">
+      <section class="column is-3">
         <sidebar />
-      </div>
-      <div class="column">
+      </section>
+      <section class="column">
         <tools />
         <editor :note="openNote" />
-      </div>
+      </section>
     </div>
   </div>
 </template>
