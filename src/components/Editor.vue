@@ -1,6 +1,9 @@
 <template>
   <div>
-    <main role="main">{{ note }}</main>
+    <input type="text" v-model="note.title" />
+    <main role="main">
+      <textarea v-model="note.body"></textarea>
+    </main>
   </div>
 </template>
 
