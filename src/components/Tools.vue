@@ -1,11 +1,7 @@
 <template>
   <div>
-    <b-button type="is-success">
-      Save
-    </b-button>
-    <b-button type="is-danger">
-      Delete
-    </b-button>
+    <b-button type="is-success">Save</b-button>
+    <b-button type="is-danger">Delete</b-button>
   </div>
 </template>
 
@@ -13,12 +9,10 @@
 export default {
   name: "tools",
   methods: {
-    save(note) {
-      console.log("save note", note);
-    },
-    delete(note) {
-      console.log("delete note", note);
-    }
+    // eslint-disable-next-line no-unused-vars
+    save(note) {},
+    // eslint-disable-next-line no-unused-vars
+    delete(note) {}
   }
 };
 </script>
