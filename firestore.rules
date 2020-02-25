@@ -13,7 +13,7 @@ service cloud.firestore {
           validateString(incomingData().title, 1, 50) &&
           validateString(incomingData().body, 1, 100000) &&
           incomingData().created_at is timestamp;
-        allow defete: if isUserAuthenticated(userId);
+        allow read, delete: if isUserAuthenticated(userId);
       }
     }
   }
