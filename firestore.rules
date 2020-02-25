@@ -1,20 +1,19 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-
-		function isAuthenticated() {
-      return request.auth != null;
-    }
     function isUserAuthenticated(userId) {
       return request.auth.uid == userId;
     }
-
     match /users/{userId} {
-      allow create, read: if isAuthenticated();
-      allow update: if isUserAuthenticated(userId);
-      match /posts/{postId} {
-        allow read;
-        allow create, update, delete: if isUserAuthenticated(userId);
+      allow get, create, update: if isUserAuthenticated(userId);
+      match /notes/{noteId} {
+        allow create, update: if isUserAuthenticated(userId) &&
+          incomingData().size() == 3 &&
+          incomingData().keys().hasAll(['title', 'body', 'created_at']) &&
+          validateString(incomingData().title, 1, 50) &&
+          validateString(incomingData().body, 1, 100000) &&
+          incomingData().created_at is timestamp;
+        allow defete: if isUserAuthenticated(userId);
       }
     }
   }
