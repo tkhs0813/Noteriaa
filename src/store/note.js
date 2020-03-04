@@ -1,9 +1,24 @@
+import firebase from "firebase/app";
+import "firebase/auth"
+
 const state = {
+  initialized: false,
+  user: {},
+  isSignIn: false,
   notes: [],
   isLoading: false
 };
 
 const mutations = {
+  SET_INITIALIZED(state) {
+    state.initialized = !state.initialized;
+  },
+  SET_USER(state, user) {
+    state.user = user;
+  },
+  SET_SIGNIN(state, isSignIn) {
+    state.isSignIn = isSignIn;
+  },
   LOAD_NOTES(state, notes) {
     state.notes = notes;
   },
@@ -23,19 +38,28 @@ const mutations = {
       return note;
     });
   },
-  SELECT_LOADING(state, loading) {
+  SET_LOADING(state, loading) {
     state.isLoading = loading;
   }
 };
 
 const actions = {
+  initialize(store) {
+    if (!store.state.initialized) {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          store.commit("SET_USER", user);
+        }
+        store.commit("SET_INITIALIZED");
+      });
+    }
+  },
   loadNotes(store) {
-    store.commit("SELECT_LOADING", true);
+    store.commit("SET_LOADING", true);
     store.commit("LOAD_NOTES", []);
 
     // 本来はDBからとってくる
-    const notes = [
-      {
+    const notes = [{
         id: 1,
         title: "Title1-1",
         body: "text1",
@@ -68,12 +92,12 @@ const actions = {
     ];
 
     store.commit("LOAD_NOTES", notes);
-    store.commit("SELECT_LOADING", false);
+    store.commit("SET_LOADING", false);
   },
   addNote(store, note) {
-    store.commit("SELECT_LOADING", true);
+    store.commit("SET_LOADING", true);
     store.commit("ADD_NOTE", note);
-    store.commit("SELECT_LOADING", false);
+    store.commit("SET_LOADING", false);
   },
   selectNote(store, note) {
     if (!note.isOpen) {
@@ -88,6 +112,8 @@ const actions = {
 };
 
 const getters = {
+  user: state => state.user,
+  isSignIn: state => state.isSignIn,
   notes: state => state.notes,
   noteById: state => id => state.notes.find(note => note.id === id),
   openNote: state => {

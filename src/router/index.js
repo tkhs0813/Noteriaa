@@ -4,13 +4,11 @@ import App from "../App.vue";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: "/",
-    name: "app",
-    component: App
-  }
-];
+const routes = [{
+  path: "/",
+  name: "app",
+  component: App
+}];
 
 const router = new VueRouter({
   mode: "history",
