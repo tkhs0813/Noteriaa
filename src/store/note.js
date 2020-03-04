@@ -1,24 +1,10 @@
-import firebase from "firebase/app";
-import "firebase/auth"
-
 const state = {
-  initialized: false,
-  user: {},
-  isSignIn: false,
+  categories: [],
   notes: [],
   isLoading: false
 };
 
 const mutations = {
-  SET_INITIALIZED(state) {
-    state.initialized = !state.initialized;
-  },
-  SET_USER(state, user) {
-    state.user = user;
-  },
-  SET_SIGNIN(state, isSignIn) {
-    state.isSignIn = isSignIn;
-  },
   LOAD_NOTES(state, notes) {
     state.notes = notes;
   },
@@ -44,16 +30,6 @@ const mutations = {
 };
 
 const actions = {
-  initialize(store) {
-    if (!store.state.initialized) {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          store.commit("SET_USER", user);
-        }
-        store.commit("SET_INITIALIZED");
-      });
-    }
-  },
   loadNotes(store) {
     store.commit("SET_LOADING", true);
     store.commit("LOAD_NOTES", []);
@@ -112,15 +88,13 @@ const actions = {
 };
 
 const getters = {
-  user: state => state.user,
-  isSignIn: state => state.isSignIn,
-  notes: state => state.notes,
+  notes: state => () => state.notes,
   noteById: state => id => state.notes.find(note => note.id === id),
-  openNote: state => {
+  openNote: state => () => {
     const index = state.notes.findIndex(note => note.isOpen);
     return state.notes[index];
   },
-  isLoading: state => state.isLoading
+  isLoading: state => () => state.isLoading
 };
 
 export default {
