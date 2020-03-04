@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="note in notes" :key="note.id">
+    <div v-for="note in notes()" :key="note.id">
       <div @click="openNote(note)">
         <note-list-item :title="note.title" />
       </div>

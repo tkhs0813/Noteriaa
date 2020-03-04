@@ -6,7 +6,7 @@
       </section>
       <section class="column">
         <tools />
-        <editor :note="openNote" />
+        <editor :note="openNote()" />
       </section>
     </div>
   </div>
