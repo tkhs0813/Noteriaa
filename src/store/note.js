@@ -5,6 +5,27 @@ const state = {
 };
 
 const mutations = {
+  LOAD_CATEGORIES(state, categories) {
+    state.categories = categories;
+  },
+  CREATE_CATEGORY(state, category) {
+    state.categories.push(category);
+  },
+  DELETE_CATEGORY(state, category) {
+    state.categories = state.categories.filter(c => c.id !== category.id);
+  },
+  OPEN_CATEGORY(state, category) {
+    const updateCategoryId = state.categories.findIndex(
+      c => c.id === category.id
+    );
+    state.categories.splice(updateCategoryId, 1, category);
+  },
+  CLOSE_CATEGORY(state) {
+    state.categories = state.categorieso.map(category => {
+      category.isOpen = false;
+      return category;
+    });
+  },
   LOAD_NOTES(state, notes) {
     state.notes = notes;
   },
@@ -30,6 +51,32 @@ const mutations = {
 };
 
 const actions = {
+  loadCategories(store) {
+    store.commit("SET_LOADING", true);
+    store.commit("LOAD_CATEGORIES", []);
+
+    const categories = [{
+      id: "category1",
+      name: "category_name_1",
+      isOpen: false
+    }, {
+      id: "category2",
+      name: "category_name_2",
+      isOpen: false
+    }, {
+      id: "category3",
+      name: "category_name_3",
+      isOpen: false
+    }];
+
+    store.commit("LOAD_NOTES", categories);
+    store.commit("SET_LOADING", false);
+  },
+  createCategory(store, category) {
+    store.commit("SET_LOADING", true);
+    store.commit("ADD_NOTE", category);
+    store.commit("SET_LOADING", false);
+  },
   loadNotes(store) {
     store.commit("SET_LOADING", true);
     store.commit("LOAD_NOTES", []);
@@ -70,6 +117,15 @@ const actions = {
     store.commit("LOAD_NOTES", notes);
     store.commit("SET_LOADING", false);
   },
+  selectCategory(store, category) {
+    store.commit("SET_LOADING", true);
+    if (!category.isOpen) {
+      store.commit("CLOSE_CATEGORY");
+      category.isOpen = true;
+      store.commit("OPEN_CATEGORY", category);
+    }
+    store.commit("SET_LOADING", false);
+  },
   addNote(store, note) {
     store.commit("SET_LOADING", true);
     store.commit("ADD_NOTE", note);
@@ -88,6 +144,7 @@ const actions = {
 };
 
 const getters = {
+  categories: state => () => state.categories,
   notes: state => () => state.notes,
   noteById: state => id => state.notes.find(note => note.id === id),
   openNote: state => () => {
